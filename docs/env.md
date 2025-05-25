@@ -2,10 +2,10 @@
 
 docker volume create portainer_data
 
-docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock
+-v portainer_data:/data portainer/portainer-ce:lts
 
 ## **rocketMq环境搭建**
-
 
 docker network create mynet
 
@@ -28,7 +28,6 @@ docker run -d \
 -t apache/rocketmq:5.3.2 sh mqbroker --enable-proxy \
 -c /home/rocketmq/rocketmq-5.3.2/conf/broker.conf
 
-
 docker run -d \
 --restart=always --name rmqbroker --privileged=true \
 -p 10912:10912 -p 10911:10911 -p 10909:10909 \
@@ -39,9 +38,6 @@ docker run -d \
 -e "NAMESRV_ADDR=43.134.114.153:9876" \
 -t apache/rocketmq:5.3.2 sh mqbroker --enable-proxy \
 -c /home/rocketmq/rocketmq-5.3.2/conf/broker.conf
-
-
-
 
 -- rocketmq-dashboard
 docker run -d --name rmqdashboard \
@@ -60,7 +56,6 @@ docker run -d \
 -t apache/rocketmq:5.3.2 sh mqbroker --enable-proxy \
 -c /home/rocketmq/rocketmq-5.3.2/conf/broker.conf
 
-
 docker run -d \
 --name rmqbroker \
 -p 10912:10912 -p 10911:10911 -p 10909:10909 \
@@ -69,10 +64,9 @@ docker run -d \
 -t apache/rocketmq:5.3.2 sh mqbroker --enable-proxy \
 -c /home/rocketmq/rocketmq-5.3.2/conf/broker.conf
 
-
 docker run -p 3306:3306 --name mysql --restart=always \
- -e MYSQL_ROOT_PASSWORD=Dev123456\
- -d mysql:8
+-e MYSQL_ROOT_PASSWORD=Dev123456\
+-d mysql:8
 
 docker run -p 6379:6379 --name redis --restart=always \
 -d redis:8 \

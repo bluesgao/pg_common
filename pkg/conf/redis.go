@@ -9,5 +9,3 @@ type RedisConfig struct {
 	//MaxActive   int   `json:",optional"`
 	//IdleTimeout int64 `json:",optional"`
 }
-
-

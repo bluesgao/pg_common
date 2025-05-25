@@ -49,13 +49,13 @@ goctl rpc protoc user.proto --go_out=. --go-grpc_out=. --zrpc_out=. --style goZe
 # 生成服务代码
 
 cd user
-goctl rpc protoc user.proto -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
+goctl rpc protoc user.proto -v -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
 
 cd merchant
 
-goctl rpc protoc merchant.proto  -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
+goctl rpc protoc merchant.proto -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
 
-goctl rpc protoc pay.proto  -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
+goctl rpc protoc pay.proto -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
 
 goctl rpc protoc wallet.proto -m -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
 
@@ -117,4 +117,5 @@ todo
 
 引入公共proto？
 
-goctl rpc protoc paygateway.proto --proto_path=./ --proto_path=./../../pkg/third_party_types -m -c=false --go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero
+goctl rpc protoc paygateway.proto --proto_path=./ --proto_path=./../../pkg/third_party_types -m -c=false
+--go_out=./../../pb --go-grpc_out=./../../pb --zrpc_out=. --style goZero

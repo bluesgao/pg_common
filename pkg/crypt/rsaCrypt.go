@@ -9,7 +9,7 @@ import (
 	"errors"
 )
 
-//加密（用公钥加密密码）
+// 加密（用公钥加密密码）
 func RsaEncrypt(plainText []byte, publicKeyPEM []byte) (string, error) {
 	block, _ := pem.Decode(publicKeyPEM)
 	if block == nil {
@@ -30,7 +30,7 @@ func RsaEncrypt(plainText []byte, publicKeyPEM []byte) (string, error) {
 	return base64.StdEncoding.EncodeToString(encryptedBytes), nil
 }
 
-//解密（用私钥解密密码）
+// 解密（用私钥解密密码）
 func RsaDecrypt(base64CipherText string, privateKeyPEM []byte) (string, error) {
 	block, _ := pem.Decode(privateKeyPEM)
 	if block == nil {
