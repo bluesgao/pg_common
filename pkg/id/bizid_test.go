@@ -2,7 +2,7 @@ package id
 
 import (
 	"fmt"
-	"powergame.com/powergame/pkg/enum"
+	"powergame.com/common/pkg/enum"
 	"testing"
 )
 

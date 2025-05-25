@@ -3,7 +3,7 @@ package id
 import (
 	"fmt"
 	"math/rand"
-	"powergame.com/powergame/pkg/enum"
+	"powergame.com/common/pkg/enum"
 	"strconv"
 	"time"
 )
