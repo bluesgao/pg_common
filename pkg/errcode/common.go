@@ -16,6 +16,7 @@ var (
 //06-bill
 //07-pay
 //08-paygateway
+//09-game
 //99-apigateway
 
 // 3. 001-999 为业务错误码
