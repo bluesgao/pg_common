@@ -24,4 +24,5 @@ var (
 	MerchantDomainExist              = New(101020, "merchant domain already exists")
 	MerchantDomainSaveErr            = New(101021, "merchant domain save err")
 	MerchantBaseSettingsErr          = New(101022, "merchant base settings err")
+	MerchantGameSettingsErr          = New(101023, "merchant game settings err")
 )

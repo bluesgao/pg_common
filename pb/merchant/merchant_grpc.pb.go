@@ -43,9 +43,9 @@ const (
 	MerchantService_CreateAccessSettings_FullMethodName           = "/merchant.MerchantService/CreateAccessSettings"
 	MerchantService_UpdateAccessSettings_FullMethodName           = "/merchant.MerchantService/UpdateAccessSettings"
 	MerchantService_ListAccessSettings_FullMethodName             = "/merchant.MerchantService/ListAccessSettings"
-	MerchantService_CreateProductSettings_FullMethodName          = "/merchant.MerchantService/CreateProductSettings"
-	MerchantService_UpdateProductSettings_FullMethodName          = "/merchant.MerchantService/UpdateProductSettings"
-	MerchantService_ListProductSettings_FullMethodName            = "/merchant.MerchantService/ListProductSettings"
+	MerchantService_CreateGameSettings_FullMethodName             = "/merchant.MerchantService/CreateGameSettings"
+	MerchantService_UpdateGameSettings_FullMethodName             = "/merchant.MerchantService/UpdateGameSettings"
+	MerchantService_ListGameSettings_FullMethodName               = "/merchant.MerchantService/ListGameSettings"
 	MerchantService_CreateAgent_FullMethodName                    = "/merchant.MerchantService/CreateAgent"
 	MerchantService_UpdateAgent_FullMethodName                    = "/merchant.MerchantService/UpdateAgent"
 	MerchantService_ListAgent_FullMethodName                      = "/merchant.MerchantService/ListAgent"
@@ -114,11 +114,11 @@ type MerchantServiceClient interface {
 	// 获取访问控制列表
 	ListAccessSettings(ctx context.Context, in *ListAccessSettingsReq, opts ...grpc.CallOption) (*ListAccessSettingsResp, error)
 	// 创建产品设置
-	CreateProductSettings(ctx context.Context, in *CreateProductSettingsReq, opts ...grpc.CallOption) (*CreateProductSettingsResp, error)
+	CreateGameSettings(ctx context.Context, in *CreateGameSettingsReq, opts ...grpc.CallOption) (*CreateGameSettingsResp, error)
 	// 更新产品设置
-	UpdateProductSettings(ctx context.Context, in *UpdateProductSettingsReq, opts ...grpc.CallOption) (*UpdateProductSettingsResp, error)
+	UpdateGameSettings(ctx context.Context, in *UpdateGameSettingsReq, opts ...grpc.CallOption) (*UpdateGameSettingsResp, error)
 	// 获取产品设置列表
-	ListProductSettings(ctx context.Context, in *ListProductSettingsReq, opts ...grpc.CallOption) (*ListProductSettingsResp, error)
+	ListGameSettings(ctx context.Context, in *ListGameSettingsReq, opts ...grpc.CallOption) (*ListGameSettingsResp, error)
 	// 代理基本信息
 	CreateAgent(ctx context.Context, in *CreateAgentReq, opts ...grpc.CallOption) (*CreateAgentResp, error)
 	// 更新代理基本信息
@@ -399,30 +399,30 @@ func (c *merchantServiceClient) ListAccessSettings(ctx context.Context, in *List
 	return out, nil
 }
 
-func (c *merchantServiceClient) CreateProductSettings(ctx context.Context, in *CreateProductSettingsReq, opts ...grpc.CallOption) (*CreateProductSettingsResp, error) {
+func (c *merchantServiceClient) CreateGameSettings(ctx context.Context, in *CreateGameSettingsReq, opts ...grpc.CallOption) (*CreateGameSettingsResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateProductSettingsResp)
-	err := c.cc.Invoke(ctx, MerchantService_CreateProductSettings_FullMethodName, in, out, cOpts...)
+	out := new(CreateGameSettingsResp)
+	err := c.cc.Invoke(ctx, MerchantService_CreateGameSettings_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *merchantServiceClient) UpdateProductSettings(ctx context.Context, in *UpdateProductSettingsReq, opts ...grpc.CallOption) (*UpdateProductSettingsResp, error) {
+func (c *merchantServiceClient) UpdateGameSettings(ctx context.Context, in *UpdateGameSettingsReq, opts ...grpc.CallOption) (*UpdateGameSettingsResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateProductSettingsResp)
-	err := c.cc.Invoke(ctx, MerchantService_UpdateProductSettings_FullMethodName, in, out, cOpts...)
+	out := new(UpdateGameSettingsResp)
+	err := c.cc.Invoke(ctx, MerchantService_UpdateGameSettings_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *merchantServiceClient) ListProductSettings(ctx context.Context, in *ListProductSettingsReq, opts ...grpc.CallOption) (*ListProductSettingsResp, error) {
+func (c *merchantServiceClient) ListGameSettings(ctx context.Context, in *ListGameSettingsReq, opts ...grpc.CallOption) (*ListGameSettingsResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListProductSettingsResp)
-	err := c.cc.Invoke(ctx, MerchantService_ListProductSettings_FullMethodName, in, out, cOpts...)
+	out := new(ListGameSettingsResp)
+	err := c.cc.Invoke(ctx, MerchantService_ListGameSettings_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -630,11 +630,11 @@ type MerchantServiceServer interface {
 	// 获取访问控制列表
 	ListAccessSettings(context.Context, *ListAccessSettingsReq) (*ListAccessSettingsResp, error)
 	// 创建产品设置
-	CreateProductSettings(context.Context, *CreateProductSettingsReq) (*CreateProductSettingsResp, error)
+	CreateGameSettings(context.Context, *CreateGameSettingsReq) (*CreateGameSettingsResp, error)
 	// 更新产品设置
-	UpdateProductSettings(context.Context, *UpdateProductSettingsReq) (*UpdateProductSettingsResp, error)
+	UpdateGameSettings(context.Context, *UpdateGameSettingsReq) (*UpdateGameSettingsResp, error)
 	// 获取产品设置列表
-	ListProductSettings(context.Context, *ListProductSettingsReq) (*ListProductSettingsResp, error)
+	ListGameSettings(context.Context, *ListGameSettingsReq) (*ListGameSettingsResp, error)
 	// 代理基本信息
 	CreateAgent(context.Context, *CreateAgentReq) (*CreateAgentResp, error)
 	// 更新代理基本信息
@@ -747,14 +747,14 @@ func (UnimplementedMerchantServiceServer) UpdateAccessSettings(context.Context, 
 func (UnimplementedMerchantServiceServer) ListAccessSettings(context.Context, *ListAccessSettingsReq) (*ListAccessSettingsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAccessSettings not implemented")
 }
-func (UnimplementedMerchantServiceServer) CreateProductSettings(context.Context, *CreateProductSettingsReq) (*CreateProductSettingsResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateProductSettings not implemented")
+func (UnimplementedMerchantServiceServer) CreateGameSettings(context.Context, *CreateGameSettingsReq) (*CreateGameSettingsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGameSettings not implemented")
 }
-func (UnimplementedMerchantServiceServer) UpdateProductSettings(context.Context, *UpdateProductSettingsReq) (*UpdateProductSettingsResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProductSettings not implemented")
+func (UnimplementedMerchantServiceServer) UpdateGameSettings(context.Context, *UpdateGameSettingsReq) (*UpdateGameSettingsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateGameSettings not implemented")
 }
-func (UnimplementedMerchantServiceServer) ListProductSettings(context.Context, *ListProductSettingsReq) (*ListProductSettingsResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListProductSettings not implemented")
+func (UnimplementedMerchantServiceServer) ListGameSettings(context.Context, *ListGameSettingsReq) (*ListGameSettingsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGameSettings not implemented")
 }
 func (UnimplementedMerchantServiceServer) CreateAgent(context.Context, *CreateAgentReq) (*CreateAgentResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAgent not implemented")
@@ -1254,56 +1254,56 @@ func _MerchantService_ListAccessSettings_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MerchantService_CreateProductSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateProductSettingsReq)
+func _MerchantService_CreateGameSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateGameSettingsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MerchantServiceServer).CreateProductSettings(ctx, in)
+		return srv.(MerchantServiceServer).CreateGameSettings(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: MerchantService_CreateProductSettings_FullMethodName,
+		FullMethod: MerchantService_CreateGameSettings_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MerchantServiceServer).CreateProductSettings(ctx, req.(*CreateProductSettingsReq))
+		return srv.(MerchantServiceServer).CreateGameSettings(ctx, req.(*CreateGameSettingsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MerchantService_UpdateProductSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProductSettingsReq)
+func _MerchantService_UpdateGameSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateGameSettingsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MerchantServiceServer).UpdateProductSettings(ctx, in)
+		return srv.(MerchantServiceServer).UpdateGameSettings(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: MerchantService_UpdateProductSettings_FullMethodName,
+		FullMethod: MerchantService_UpdateGameSettings_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MerchantServiceServer).UpdateProductSettings(ctx, req.(*UpdateProductSettingsReq))
+		return srv.(MerchantServiceServer).UpdateGameSettings(ctx, req.(*UpdateGameSettingsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MerchantService_ListProductSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListProductSettingsReq)
+func _MerchantService_ListGameSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListGameSettingsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MerchantServiceServer).ListProductSettings(ctx, in)
+		return srv.(MerchantServiceServer).ListGameSettings(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: MerchantService_ListProductSettings_FullMethodName,
+		FullMethod: MerchantService_ListGameSettings_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MerchantServiceServer).ListProductSettings(ctx, req.(*ListProductSettingsReq))
+		return srv.(MerchantServiceServer).ListGameSettings(ctx, req.(*ListGameSettingsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1682,16 +1682,16 @@ var MerchantService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _MerchantService_ListAccessSettings_Handler,
 		},
 		{
-			MethodName: "CreateProductSettings",
-			Handler:    _MerchantService_CreateProductSettings_Handler,
+			MethodName: "CreateGameSettings",
+			Handler:    _MerchantService_CreateGameSettings_Handler,
 		},
 		{
-			MethodName: "UpdateProductSettings",
-			Handler:    _MerchantService_UpdateProductSettings_Handler,
+			MethodName: "UpdateGameSettings",
+			Handler:    _MerchantService_UpdateGameSettings_Handler,
 		},
 		{
-			MethodName: "ListProductSettings",
-			Handler:    _MerchantService_ListProductSettings_Handler,
+			MethodName: "ListGameSettings",
+			Handler:    _MerchantService_ListGameSettings_Handler,
 		},
 		{
 			MethodName: "CreateAgent",
