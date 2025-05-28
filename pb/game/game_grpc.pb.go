@@ -19,7 +19,6 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Game_Ping_FullMethodName             = "/game.Game/Ping"
 	Game_CreateGame_FullMethodName       = "/game.Game/CreateGame"
 	Game_GameInfo_FullMethodName         = "/game.Game/GameInfo"
 	Game_CategoryGameList_FullMethodName = "/game.Game/CategoryGameList"
@@ -29,9 +28,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GameClient interface {
-	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	// 创建游戏
 	CreateGame(ctx context.Context, in *CreateGameReq, opts ...grpc.CallOption) (*CreateGameResp, error)
+	// 获取游戏信息
 	GameInfo(ctx context.Context, in *GameInfoReq, opts ...grpc.CallOption) (*GameInfoResp, error)
+	// 获取分类游戏列表
 	CategoryGameList(ctx context.Context, in *CategoryGameListReq, opts ...grpc.CallOption) (*CategoryGameListResp, error)
 }
 
@@ -41,16 +42,6 @@ type gameClient struct {
 
 func NewGameClient(cc grpc.ClientConnInterface) GameClient {
 	return &gameClient{cc}
-}
-
-func (c *gameClient) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Response)
-	err := c.cc.Invoke(ctx, Game_Ping_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *gameClient) CreateGame(ctx context.Context, in *CreateGameReq, opts ...grpc.CallOption) (*CreateGameResp, error) {
@@ -87,9 +78,11 @@ func (c *gameClient) CategoryGameList(ctx context.Context, in *CategoryGameListR
 // All implementations must embed UnimplementedGameServer
 // for forward compatibility.
 type GameServer interface {
-	Ping(context.Context, *Request) (*Response, error)
+	// 创建游戏
 	CreateGame(context.Context, *CreateGameReq) (*CreateGameResp, error)
+	// 获取游戏信息
 	GameInfo(context.Context, *GameInfoReq) (*GameInfoResp, error)
+	// 获取分类游戏列表
 	CategoryGameList(context.Context, *CategoryGameListReq) (*CategoryGameListResp, error)
 	mustEmbedUnimplementedGameServer()
 }
@@ -101,9 +94,6 @@ type GameServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGameServer struct{}
 
-func (UnimplementedGameServer) Ping(context.Context, *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
-}
 func (UnimplementedGameServer) CreateGame(context.Context, *CreateGameReq) (*CreateGameResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
 }
@@ -132,24 +122,6 @@ func RegisterGameServer(s grpc.ServiceRegistrar, srv GameServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Game_ServiceDesc, srv)
-}
-
-func _Game_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GameServer).Ping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Game_Ping_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GameServer).Ping(ctx, req.(*Request))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Game_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -213,10 +185,6 @@ var Game_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "game.Game",
 	HandlerType: (*GameServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Ping",
-			Handler:    _Game_Ping_Handler,
-		},
 		{
 			MethodName: "CreateGame",
 			Handler:    _Game_CreateGame_Handler,
