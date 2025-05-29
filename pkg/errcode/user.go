@@ -67,4 +67,5 @@ var (
 	UserLoginPwdInvalidErr           = New(303062, "user login pwd invalid")
 	UserOldLoginPwdInvalidErr        = New(303063, "user old login pwd invalid")
 	UserOldPayPwdInvalidErr          = New(303064, "user old pay pwd invalid")
+	UserAccessTokenGetErr            = New(303065, "user access token get err")
 )
