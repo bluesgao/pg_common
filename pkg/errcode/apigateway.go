@@ -10,4 +10,5 @@ var (
 	UserTokenIllegal        = New(990007, "user token is illegal")
 	UserRefreshTokenIllegal = New(990008, "user refresh token is illegal")
 	RpcCallFailed           = New(990009, "rpc call failed")
+	UserAuthErr             = New(990010, "user auth failed")
 )
