@@ -5,4 +5,5 @@ var (
 	GameNoFoundErr     = New(90002, "game no found")
 	GameInfoNoFoundErr = New(90003, "game info no found")
 	GameCreateErr      = New(90004, "game create err")
+	GameCategoryNoFoundErr = New(90005, "game category no found")
 )

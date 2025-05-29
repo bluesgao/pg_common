@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Game_CreateGame_FullMethodName = "/game.Game/CreateGame"
-	Game_GameInfo_FullMethodName   = "/game.Game/GameInfo"
-	Game_GameList_FullMethodName   = "/game.Game/GameList"
+	Game_CreateGame_FullMethodName   = "/game.Game/CreateGame"
+	Game_GameInfo_FullMethodName     = "/game.Game/GameInfo"
+	Game_GameList_FullMethodName     = "/game.Game/GameList"
+	Game_GameCategory_FullMethodName = "/game.Game/GameCategory"
 )
 
 // GameClient is the client API for Game service.
@@ -34,6 +35,8 @@ type GameClient interface {
 	GameInfo(ctx context.Context, in *GameInfoReq, opts ...grpc.CallOption) (*GameInfoResp, error)
 	// 获取游戏列表
 	GameList(ctx context.Context, in *GameListReq, opts ...grpc.CallOption) (*GameListResp, error)
+	// 获取游戏分类
+	GameCategory(ctx context.Context, in *GameCategoryReq, opts ...grpc.CallOption) (*GameCategoryResp, error)
 }
 
 type gameClient struct {
@@ -74,6 +77,16 @@ func (c *gameClient) GameList(ctx context.Context, in *GameListReq, opts ...grpc
 	return out, nil
 }
 
+func (c *gameClient) GameCategory(ctx context.Context, in *GameCategoryReq, opts ...grpc.CallOption) (*GameCategoryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GameCategoryResp)
+	err := c.cc.Invoke(ctx, Game_GameCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GameServer is the server API for Game service.
 // All implementations must embed UnimplementedGameServer
 // for forward compatibility.
@@ -84,6 +97,8 @@ type GameServer interface {
 	GameInfo(context.Context, *GameInfoReq) (*GameInfoResp, error)
 	// 获取游戏列表
 	GameList(context.Context, *GameListReq) (*GameListResp, error)
+	// 获取游戏分类
+	GameCategory(context.Context, *GameCategoryReq) (*GameCategoryResp, error)
 	mustEmbedUnimplementedGameServer()
 }
 
@@ -102,6 +117,9 @@ func (UnimplementedGameServer) GameInfo(context.Context, *GameInfoReq) (*GameInf
 }
 func (UnimplementedGameServer) GameList(context.Context, *GameListReq) (*GameListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GameList not implemented")
+}
+func (UnimplementedGameServer) GameCategory(context.Context, *GameCategoryReq) (*GameCategoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GameCategory not implemented")
 }
 func (UnimplementedGameServer) mustEmbedUnimplementedGameServer() {}
 func (UnimplementedGameServer) testEmbeddedByValue()              {}
@@ -178,6 +196,24 @@ func _Game_GameList_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Game_GameCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GameCategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GameServer).GameCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Game_GameCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GameServer).GameCategory(ctx, req.(*GameCategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Game_ServiceDesc is the grpc.ServiceDesc for Game service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -196,6 +232,10 @@ var Game_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GameList",
 			Handler:    _Game_GameList_Handler,
+		},
+		{
+			MethodName: "GameCategory",
+			Handler:    _Game_GameCategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
